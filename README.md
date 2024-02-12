@@ -7,6 +7,14 @@ This extension is composed of a Python package named `disk_usage`
 for the server extension and a NPM package named `disk-usage`
 for the frontend extension.
 
+## Build and test instructions
+```bash
+python3 -m venv venv
+. venv/bin/activate
+pip wheel . --no-deps
+docker run --rm -p 8888:8888 $(docker build . -q)
+```
+
 ## Requirements
 
 - JupyterLab >= 4.0.0

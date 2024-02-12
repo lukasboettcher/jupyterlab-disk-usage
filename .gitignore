@@ -1,4 +1,5 @@
 *.bundle.*
+*.whl
 lib/
 node_modules/
 *.log
