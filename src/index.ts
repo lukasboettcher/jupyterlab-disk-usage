@@ -18,6 +18,18 @@ function bytesToSize(value: string): string {
   return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
 }
 
+function percentToColor(value: string): string {
+  let percentage = parseFloat(value);
+  
+  // Ensure the percentage is within the range 80-100
+  percentage = Math.min(Math.max(percentage, 80), 100);
+
+  // Calculate hue based on the percentage (from yellow to red)
+  const hue = (1 - (percentage - 80) / 20) * 60;
+
+  return `hsl(${hue},1,0.5)`;
+}
+
 /**
  * Initialization data for the disk-usage extension.
  */
@@ -41,8 +53,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         factory: () =>
           requestAPI<any>('get')
             .then(data => {
-              console.log(data);
-              duWidget.node.innerHTML = `<span class="jp-StatusBar-TextItem">Disk: ${data.disk_percentage}% [${bytesToSize(data.disk_used)}/${bytesToSize(data.disk_total)}]</span>`;
+              duWidget.node.innerHTML = `<span style="background-color:${percentToColor(data.disk_percentage)};" class="jp-StatusBar-TextItem">Disk: ${data.disk_percentage}% [${bytesToSize(data.disk_used)}/${bytesToSize(data.disk_total)}]</span>`;
             })
             .catch(reason => {
               console.error(
