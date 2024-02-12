@@ -20,7 +20,7 @@ function bytesToSize(value: string): string {
 
 function percentToColor(value: string): string {
   let percentage = parseFloat(value);
-  
+
   // Ensure the percentage is within the range 80-100
   percentage = Math.min(Math.max(percentage, 80), 100);
 
