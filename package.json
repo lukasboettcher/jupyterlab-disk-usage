@@ -94,14 +94,14 @@
     },
     "jupyterlab": {
         "discovery": {
-        "server": {
-            "managers": [
-                "pip"
-            ],
-            "base": {
-                "name": "disk_usage"
+            "server": {
+                "managers": [
+                    "pip"
+                ],
+                "base": {
+                    "name": "disk_usage"
+                }
             }
-        }
         },
         "extension": true,
         "outputDir": "disk_usage/labextension"
