@@ -1,4 +1,5 @@
 import json
+import psutil
 
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
@@ -10,8 +11,12 @@ class RouteHandler(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
+        total, used, free, percentage = psutil.disk_usage("/home/jovyan")
         self.finish(json.dumps({
-            "data": "This is /disk-usage/get-example endpoint!"
+            "disk_total": total,
+            "disk_used": used,
+            "disk_free": free,
+            "disk_percentage": percentage,
         }))
 
 
@@ -19,6 +24,6 @@ def setup_handlers(web_app):
     host_pattern = ".*$"
 
     base_url = web_app.settings["base_url"]
-    route_pattern = url_path_join(base_url, "disk-usage", "get-example")
+    route_pattern = url_path_join(base_url, "disk-usage", "get")
     handlers = [(route_pattern, RouteHandler)]
     web_app.add_handlers(host_pattern, handlers)
