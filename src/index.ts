@@ -27,7 +27,7 @@ function percentToColor(value: string): string {
   // Calculate hue based on the percentage (from yellow to red)
   const hue = (1 - (percentage - 80) / 20) * 60;
 
-  return `hsl(${hue},1,0.5)`;
+  return `hsl(${hue},100%,50%)`;
 }
 
 /**
