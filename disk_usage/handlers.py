@@ -1,4 +1,5 @@
 import json
+import os
 import psutil
 
 from jupyter_server.base.handlers import APIHandler
@@ -11,7 +12,10 @@ class RouteHandler(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
-        total, used, free, percentage = psutil.disk_usage("/home/jovyan")
+        path = "/home/jovyan"
+        if not os.path.isdir(path):
+            path = "/"
+        total, used, free, percentage = psutil.disk_usage(path)
         self.finish(json.dumps({
             "disk_total": total,
             "disk_used": used,
